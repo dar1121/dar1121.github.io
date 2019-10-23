@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>the cloud, the slate, and the stack</title>
+	<link href="https://fonts.googleapis.com/css?family=Lexend+Zetta&display=swap" rel="stylesheet">
+
+<!-- DRAG AND DROP CODE FROMhttps://medium.com/quick-code/simple-javascript-drag-drop-d044d8c5bed5 -->
+<script>
+	class App {
+
+  static init() {
+
+    App.box = document.getElementsByClassName('box')[0]
+
+    App.box.addEventListener("dragstart", App.dragstart)
+    App.box.addEventListener("dragend", App.dragend)
+
+    const containers = document.getElementsByClassName('holder')
+
+    for(const container of containers) {
+      container.addEventListener("dragover", App.dragover)
+      container.addEventListener("dragenter", App.dragenter)
+      container.addEventListener("dragleave", App.dragleave)
+      container.addEventListener("drop", App.drop)
+    }
+  }
+
+  static dragstart() {
+    this.className += " held"
+  
+    setTimeout(()=>this.className="invisible", 0)
+  }
+
+  static dragend() {
+    this.className = "box"
+  }
+
+  static dragover(e) {
+    e.preventDefault()
+  }
+
+  static dragenter(e) {
+    e.preventDefault()
+    this.className += " hovered"
+  }
+
+  static dragleave() {
+    this.className = "holder"
+  }
+
+  static drop() {
+    this.className = "holder"
+    this.append(App.box)
+  }
+
+}
+
+document.addEventListener("DOMContentLoaded", App.init)
+</script>
+<style>
+
+	body {
+	background: #B4A0E5;
+	}
+
+	h1 {
+	font-family: 'Lexend Zetta', sans-serif;
+    }
+
+    #content {
+    	margin: auto;
+    	top: 100px;
+    	width: 500px;
+    	position: relative;
+      margin-bottom: 100px;
+    }
+
+    #container {
+      width:100%;
+      height:150px;
+    }
+    .box {
+	  height: 100px;
+	  width: 100px;
+	  position: relative;
+	  top: 5px;
+	  left: 5px;
+	  cursor: pointer;
+	}
+
+	.held {
+	  border: solid 10px ;
+
+	}
+
+	.holder {
+	  height: 110px;
+	  width: 110px;
+	  margin: 10px;
+	  border: solid 5px #BA4FF6;
+	  background-color: #B0A2E0;
+	  display: inline-block;
+	}
+
+	.hovered {
+	  border: dotted 5px #BA4FF6;
+	}
+
+	.invisible {
+	  display: none;
+	}
+
+  #cloud{
+    border: #F4F4F4;
+    background-color: #F4F4F4;
+  }
+
+  #slate{
+    border: #1E1014;
+    background-color: #1E1014;
+  }
+
+  #stack{
+    border: #F1C1CA;
+    background-color: #F1C1CA;
+  }
+</style>
+</head>
+
+
+<body>
+    
+<div id="content">
+
+  
+    <h1> <span style="color:#F4F4F4"> the cloud,</span></h1>
+        <div id="container">
+          <div class="holder">
+            <div class="box" id="cloud" draggable="true">              </div>
+          </div>
+        
+          <div class="holder"></div>
+
+          <div class="holder"></div>
+        </div>
+
+    <h1> <span style="color:#1E1014"> the slate, </span></h1> 
+        <div id="container">
+          <div class="holder">
+          </div>
+        
+          <div class="holder"></div>
+
+          <div class="holder"></div>
+        </div>
+
+
+    <h1> <span style="color:#FBBFCA"> and the stack. </span> </h1>
+        <div id="container">
+          <div class="holder">
+          </div>
+        
+          <div class="holder"></div>
+
+          <div class="holder"></div>
+        </div>
+
+</div>
+
+
+</body>
+</html>
