@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Position of New York</title>
+	<link href="style.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="container"></div>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"> 
+  </script>
+   <script>
+
+let lati;
+let longi;
+
+  var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://devru-latitude-longitude-find-v1.p.rapidapi.com/latlon.php?location=New%20York",
+  "method": "GET",
+  "headers": {
+    "x-rapidapi-host": "devru-latitude-longitude-find-v1.p.rapidapi.com",
+    "x-rapidapi-key": "34fd52e769msh2a059365a8c043ap12dfb1jsn31851066b5d2"
+  }
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+  lati = response.Results["0"].lat; 
+  longi = response.Results["0"].lon;
+});
+
+ 
+
+
+let img;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  img = loadImage('https://i.imgur.com/0JGU88l.jpg');
+}
+
+function draw() {
+  background(0);
+  lights();
+
+  orbitControl();
+  
+  
+  push();
+  noStroke();
+  texture(img);
+  sphere(300);
+  
+  let r = 300;
+  let total = 360;
+  
+  let lon = map(longi, 0,total, -PI, PI);
+
+  let lat = map(lati, 0, total, -HALF_PI, HALF_PI);
+      
+  let x = r * sin(lon) * cos(lat);
+  let y = r * sin(lon) * sin(lat);
+  let z = r * cos(lon);
+      
+  stroke(255);
+  strokeWeight(20);
+  point(x,y,z);
+      
+  
+  noFill();
+  stroke(160);
+  strokeWeight(0.3);
+  sphere(600);
+  pop();
+}
+
+</script>
+
+</body>
+</html>
